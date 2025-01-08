@@ -1,10 +1,3 @@
-/*
- * @lc app=leetcode.cn id=704 lang=golang
- *
- * [704] 爬楼梯
- */
-
-// @lc code=start
 func search(nums []int, target int) int {
     left := 0
     right := len(nums)-1
@@ -22,5 +15,3 @@ func search(nums []int, target int) int {
     return -1
     
 }
-// @lc code=end
-
