@@ -1,7 +1,7 @@
 #
-# @lc app=leetcode.cn id=27 lang=python3
+# @lc app=leetcode id=27 lang=python3
 #
-# [27] 移除元素
+# [27] Remove Element
 #
 
 # @lc code=start

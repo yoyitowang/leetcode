@@ -1,7 +1,7 @@
 #
-# @lc app=leetcode.cn id=704 lang=python3
+# @lc app=leetcode id=704 lang=python3
 #
-# [704] 二分查找
+# [704] Binary Search
 #
 
 # @lc code=start

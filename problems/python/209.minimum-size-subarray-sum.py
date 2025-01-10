@@ -1,7 +1,7 @@
 #
-# @lc app=leetcode.cn id=209 lang=python3
+# @lc app=leetcode id=209 lang=python3
 #
-# [209] 长度最小的子数组
+# [209] Minimum Size Subarray Sum
 #
 
 # @lc code=start

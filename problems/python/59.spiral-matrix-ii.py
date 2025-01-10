@@ -1,7 +1,7 @@
 #
-# @lc app=leetcode.cn id=59 lang=python3
+# @lc app=leetcode id=59 lang=python3
 #
-# [59] 螺旋矩阵 II
+# [59] Spiral Matrix II
 #
 
 # @lc code=start
@@ -45,4 +45,3 @@ class Solution:
 
         
 # @lc code=end
-

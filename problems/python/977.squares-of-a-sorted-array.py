@@ -1,7 +1,7 @@
 #
-# @lc app=leetcode.cn id=977 lang=python3
+# @lc app=leetcode id=977 lang=python3
 #
-# [977] 有序数组的平方
+# [977] Squares of a Sorted Array
 #
 
 # @lc code=start
