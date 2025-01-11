@@ -9,22 +9,10 @@ class Solution:
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
         if not headA or not headB:
             return None
-        la = lb = 1
-        A, B = headA, headB
-        while (A:=A.next):
-            la += 1
-        while (B:=B.next):
-            lb += 1
-        diff = abs(la-lb)
-        if la > lb:
-            for _ in range(diff):
-                headA = headA.next
-        elif lb > la:
-            for _ in range(diff):
-                headB = headB.next
+        ptrA, ptrB = headA, headB
+        while ptrA != ptrB:
+            ptrA = ptrA.next if ptrA else headB
+            ptrB = ptrB.next if ptrB else headA
 
-        while headA != headB:
-            headA, headB = headA.next, headB.next
-
-        return headA            
+        return ptrA        
         
