@@ -7,6 +7,8 @@
 # @lc code=start
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
+        # TC: O(nlogn)
+        # SC: O(n)
         from collections import defaultdict, deque
         ht = defaultdict(deque)
         for idx, num in enumerate(nums):
