@@ -7,21 +7,14 @@
 # @lc code=start
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        # TC: O(nlogn)
+        # TC: O(n)
         # SC: O(n)
-        from collections import defaultdict, deque
-        ht = defaultdict(deque)
+        ht = {}
         for idx, num in enumerate(nums):
-            ht[num].append(idx)
-
-        nums.sort()
-        left, right = 0, len(nums)-1
-        while left < right:
-            if (_sum := nums[left] + nums[right]) == target:
-                return [ht[nums[left]].popleft(), ht[nums[right]].popleft()]
-            elif _sum < target:
-                left += 1
-            else:
-                right -= 1
+            c = target - num
+            if c in ht:
+                return [ht[c], idx]
+            ht[num] = idx
+        
 # @lc code=end
 
