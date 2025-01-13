@@ -7,6 +7,10 @@
 # @lc code=start
 class Solution:
     def isHappy(self, n: int) -> bool:
+        # Use slow-fast pointer can imporve this performance
+        # Circular question -> slow-fast
+        # TC: O(log n)
+        # SC: O(k)
         ht = set()
         while n not in ht:
             ht.add(n)
