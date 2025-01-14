@@ -7,6 +7,8 @@
 # @lc code=start
 class Solution:
     def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
+        # TC: O(n^3)
+        # SC: O(1)
         nums.sort()
         res = []
         if (n:=len(nums)) < 4:
