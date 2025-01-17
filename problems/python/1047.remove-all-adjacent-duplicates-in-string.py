@@ -7,6 +7,8 @@
 # @lc code=start
 class Solution:
     def removeDuplicates(self, s: str) -> str:
+        # TC: O(n)
+        # SC: O(n) worst case
         st = []
         for char in s:
             if st and st[-1] == char:
