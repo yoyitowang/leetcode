@@ -17,13 +17,14 @@ class Solution:
             "}": "{",
         }
         for char in s:
-            if char in table.keys() and len(st) > 0:
-                if table[char] != st.pop():
+            if char in table:
+                ele = st.pop() if st else "#"
+                if table[char] != ele:
                     return False
             else:
                 st.append(char)
         
-        return False if len(st) > 0 else True
+        return not st
         
 # @lc code=end
 
