@@ -12,36 +12,34 @@ class MyStack:
         # last in first out
         self.q1 = deque([])
         self.q2 = deque([])
-        self.cur = self.q1
 
     def push(self, x: int) -> None:
-        self.refresh()
-        self.cur.append(x)
+        self.q1.append(x)
 
     def pop(self) -> int:
-        self.refresh()
-        for _ in range(len(self.cur)-1):
-            self.cur.append(self.cur.popleft())
-        return self.cur.popleft()
+        while len(self.q1) > 1:
+            self.q2.append(self.q1.popleft())
+        num = self.q1.popleft()
+        self.swap()
+
+        return num
 
     def top(self) -> int:
-        self.refresh()
-        for _ in range(len(self.cur)-1):
-            self.cur.append(self.cur.popleft())
-        num = self.cur.popleft()
-        self.cur.append(num)
+        if self.empty():
+            return
+        while len(self.q1) > 0:
+            self.q2.append((num:=self.q1.popleft()))
+        self.swap()
+
         return num
         
 
     def empty(self) -> bool:
-        return not (self.q1 or self.q2)
+        return not self.q1 
+
+    def swap(self):
+        self.q1, self.q2 = self.q2, self.q1
         
-    def refresh(self):
-        if not self.empty():
-            if len(self.q1) > 0:
-                self.cur = self.q1
-            else:
-                self.cur = self.q2
 
 # Your MyStack object will be instantiated and called as such:
 # obj = MyStack()
