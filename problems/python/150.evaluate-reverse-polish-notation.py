@@ -9,22 +9,24 @@ class Solution:
     def evalRPN(self, tokens: List[str]) -> int:
         # TC: O(n)
         # SC: O(n)
-        op = [
-            "+",
-            "-",
-            "*",
-            "/"
-        ]
+        op = {"+", "-", "*", "/"}
         st = []
         for token in tokens:
             if token not in op:
-                st.append(token)
-            elif len(st) >= 2:
+                st.append(int(token))
+            else:
                 n2 = st.pop()
                 n1 = st.pop()
-                st.append(str(int(eval(n1+token+n2))))
+                if token == "+":
+                    st.append(n1+n2)
+                elif token == "-":
+                    st.append(n1-n2)
+                elif token == "*":
+                    st.append(n1*n2)
+                elif token == "/":
+                    st.append(int(n1/n2))
         
-        return int(st.pop())
+        return st.pop()
     
 # @lc code=end
 
