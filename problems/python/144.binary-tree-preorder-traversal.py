@@ -19,20 +19,40 @@
 #         self.right = right
 class Solution:
     def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-        # recursive
-        # TC: O(n)
-        # SC: O(h) h is height of tree
-        res = []
+        # # recursive
+        # # TC: O(n)
+        # # SC: O(h) h is height of tree
+        # res = []
         
-        def dfs(node):
-            if not node:
-                return
+        # def dfs(node):
+        #     if not node:
+        #         return
             
-            res.append(node.val)
-            if node.left: dfs(node.left)
-            if node.right: dfs(node.right)
+        #     res.append(node.val)
+        #     if node.left: dfs(node.left)
+        #     if node.right: dfs(node.right)
         
-        dfs(root)
-        return res     
+        # dfs(root)
+        # return res
+
+        # --
+        # iterative
+        # TC: O(n)
+        # SC: O(h)
+        res = []
+        if not root: return res
+        st = [root]
+        while st:
+            node = st.pop()
+            if node:
+                if node.right: st.append(node.right)
+                if node.left: st.append(node.left)
+                st.append(node)
+                st.append(None)
+            else:
+                node = st.pop()
+                res.append(node.val)
+        
+        return res
 # @lc code=end
 
