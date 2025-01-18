@@ -7,17 +7,18 @@
 # @lc code=start
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        # TC: O(n logn)
-        # SC: O(k)
-        from collections import defaultdict
-        counter = defaultdict(int)
-        for num in nums:
-            counter[num] += 1
-        prior_que = []
-        counter = sorted(counter.items(), key=lambda x:x[1], reverse=True) # TC: O(n logn)
-        res = []
-        for i in range(k):
-            res.append(counter[i][0]) # TC: O(k)
-        return res     
+        # TC: O(n log n)
+        # SC: O(n+k)
+        from collections import Counter
+        from heapq import heappush, heappop
+        counter = Counter(nums) # O(n)
+
+        min_heap = [] # O(k)
+        for num, freq in counter.items(): # O(n)
+            heappush(min_heap, (freq, num)) # O(n log n)
+            if len(min_heap) > k:
+                heappop(min_heap) # O(log n)
+        
+        return [num for freq, num in min_heap]    
 # @lc code=end
 
