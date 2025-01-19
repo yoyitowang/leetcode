@@ -19,19 +19,36 @@
 #         self.right = right
 class Solution:
     def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-        # recursive
-        # TC: O(n)
-        # SC: O(h)
+        # # recursive
+        # # TC: O(n)
+        # # SC: O(h)
         
-        res = []
-        def dfs(node):
-            if not node:
-                return
-            if node.left: dfs(node.left)
-            if node.right: dfs(node.right)
-            res.append(node.val)
+        # res = []
+        # def dfs(node):
+        #     if not node:
+        #         return
+        #     if node.left: dfs(node.left)
+        #     if node.right: dfs(node.right)
+        #     res.append(node.val)
 
-        dfs(root)
-        return res
+        # dfs(root)
+        # return res
+
+        # --
+        # iterative
+        # TC: O(n)
+        # SC: O(n)/O(log n)
+        res = []
+        if not root:
+            return res
+        st = [root]
+        # left > right > root
+        while st:
+            node = st.pop()
+            res.append(node.val)
+            if node.left: st.append(node.left)
+            if node.right: st.append(node.right)
+
+        return res[::-1]
 # @lc code=end
 
