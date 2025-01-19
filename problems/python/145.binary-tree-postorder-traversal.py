@@ -34,21 +34,44 @@ class Solution:
         # dfs(root)
         # return res
 
+        # # --
+        # # iterative
+        # # TC: O(n)
+        # # SC: O(n)/O(log n)
+        # res = []
+        # if not root:
+        #     return res
+        # st = [root]
+        # # left > right > root
+        # while st:
+        #     node = st.pop()
+        #     res.append(node.val)
+        #     if node.left: st.append(node.left)
+        #     if node.right: st.append(node.right)
+
+        # return res[::-1]
+
         # --
-        # iterative
+        # iterative 2
         # TC: O(n)
-        # SC: O(n)/O(log n)
+        # SC: O(n)
         res = []
         if not root:
             return res
         st = [root]
-        # left > right > root
+
         while st:
             node = st.pop()
-            res.append(node.val)
-            if node.left: st.append(node.left)
-            if node.right: st.append(node.right)
-
-        return res[::-1]
+            if node:
+                # left > right > root
+                st.append(node)
+                st.append(None)
+                if node.right: st.append(node.right)
+                if node.left: st.append(node.left)
+            else: # when it's None -> start append result
+                node = st.pop()
+                res.append(node.val)
+        return res                
+                
 # @lc code=end
 
