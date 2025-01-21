@@ -19,6 +19,8 @@
 #         self.right = right
 class Solution:
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        # TC: O(n)
+        # SC: O(h)
         
         def dfs(node):
             if not node:
