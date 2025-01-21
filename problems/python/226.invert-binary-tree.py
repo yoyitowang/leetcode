@@ -26,8 +26,8 @@ class Solution:
             if not node:
                 return
             
-            if node.left: dfs(node.left)
-            if node.right: dfs(node.right)
+            dfs(node.left)
+            dfs(node.right)
             node.left, node.right = node.right, node.left
 
         dfs(root)
