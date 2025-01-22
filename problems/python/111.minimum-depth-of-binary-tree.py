@@ -36,6 +36,18 @@ class Solution:
                 if node.right: dq.append(node.right)
         
         return dep
+
+        # # -- recursive
+        # # TC: O(n)
+        # # SC: O(h)
+        # if not root:
+        #     return 0
+        # if not root.left and root.right:
+        #     return 1 + self.minDepth(root.right)
+        # if not root.right and root.left:
+        #     return 1 + self.minDepth(root.left)
+        
+        # return 1 + min(self.minDepth(root.left), self.minDepth(root.right))
              
 # @lc code=end
 
