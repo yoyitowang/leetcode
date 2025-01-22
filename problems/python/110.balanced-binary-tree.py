@@ -19,6 +19,8 @@
 #         self.right = right
 class Solution:
     def isBalanced(self, root: Optional[TreeNode]) -> bool:
+        # TC: O(n)
+        # SC: O(h)
         if not root:
             return True
         
