@@ -23,6 +23,23 @@ class Solution:
                     res = node.val
                 if node.left: que.append(node.left)
                 if node.right:que.append(node.right)
-        return res      
+        return res
+    
+    # def findBottomLeftValue(self, root: Optional[TreeNode]) -> int:
+    #     self.res = None
+    #     self.max_dep = float('-inf')
+    #     self.dfs(root, 0)
+
+    #     return self.res
+
+    # def dfs(self, node, dep):
+    #     if not node:
+    #         return
+    #     if not node.left and not node.right:
+    #         if dep > self.max_dep:
+    #             self.max_dep = dep
+    #             self.res = node.val
+    #     self.dfs(node.left, dep+1)
+    #     self.dfs(node.right, dep+1)
 # @lc code=end
 
