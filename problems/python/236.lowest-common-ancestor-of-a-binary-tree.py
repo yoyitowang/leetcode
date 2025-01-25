@@ -5,7 +5,7 @@
 #
 
 # @lc code=start
-# Definition for a binary tree node.
+# Definition for a binary tree root.
 # class TreeNode:
 #     def __init__(self, x):
 #         self.val = x
@@ -16,21 +16,17 @@ class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         # TC: O(n)
         # SC: O(h)
-        def dfs(node, p, q):
-            if not node:
-                return
-            
-            left = dfs(node.left, p, q)
-            right = dfs(node.right, p, q)            
-            if node.val == p.val or node.val == q.val:
-                return node
-                    
-            if left and right:
-                return node
-            elif left:
-                return left
-            else:
-                return right
-        return dfs(root, p, q)     
+        if not root:
+            return
+        
+        left = self.lowestCommonAncestor(root.left, p, q)
+        right = self.lowestCommonAncestor(root.right, p, q)            
+        if root.val == p.val or root.val == q.val:
+            return root
+                
+        if left and right:
+            return root
+
+        return left or right  
 # @lc code=end
 
