@@ -12,19 +12,24 @@
 #         self.left = left
 #         self.right = right
 class Solution:
+    def __init__(self):
+        self.vec = []
+
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        
-        def dfs(node, min_v, max_v):
-            if not node:
-                return True
-            if not min_v < node.val < max_v:
+        self.treversal(root)
+        for i in range(1, len(self.vec)):
+            if self.vec[i] <= self.vec[i-1]:
                 return False
-            left = dfs(node.left, min_v, node.val)
-            right = dfs(node.right, node.val, max_v)
-            
-            return left and right
         
-        return dfs(root, float('-inf'), float('inf'))
-                  
+        return True
+        
+    def treversal(self, node):
+        if not node:
+            return 
+        # left > root > right
+        if node.left: self.treversal(node.left)
+        self.vec.append(node.val)
+        if node.right: self.treversal(node.right)
+    
 # @lc code=end
 
