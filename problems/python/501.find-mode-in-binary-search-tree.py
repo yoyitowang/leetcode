@@ -15,26 +15,43 @@ class Solution:
     def findMode(self, root: Optional[TreeNode]) -> List[int]:
         # TC: O(n+m)
         # SC: O(n)
-        self.res = defaultdict(int)
+        # Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def findMode(self, root: Optional[TreeNode]) -> List[int]:
+        # TC: O(n)
+        # SC: O(1) + O(h) stack of tree
+        self.mode = []
+        self.prev = None
+        self.max = 0
+        self.cnt = 0
 
         def dfs(node):
             if not node:
                 return
             # left > root > right
             dfs(node.left)
-            self.res[node.val] += 1
+            if self.prev == node.val:
+                self.cnt += 1
+            else:
+                self.cnt = 0
+            self.prev = node.val
+
+            if self.cnt == self.max:
+                self.mode.append(node.val)
+            elif self.cnt > self.max:
+                self.max = self.cnt
+                self.mode = [node.val]
             dfs(node.right)
         dfs(root)
 
-        mode = []
-        cur_max = 0
-        for k, v in self.res.items():
-            if v > cur_max:
-                mode = [k]
-                cur_max = v
-            elif v == cur_max:
-                mode.append(k)
-        return mode
+        return self.mode
+
+
             
 # @lc code=end
 
