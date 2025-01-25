@@ -18,19 +18,13 @@ class Solution:
             return None
         if root.val > q.val and root.val > p.val:
             left = self.lowestCommonAncestor(root.left, p, q)
-            right = None
+            if left:
+                return left
         elif root.val < q.val and root.val < p.val:
-            left = None
             right = self.lowestCommonAncestor(root.right, p, q)
-        else:
-            left = self.lowestCommonAncestor(root.left, p, q)
-            right = self.lowestCommonAncestor(root.right, p, q)
-        if left and right:
-            return root
+            if right:
+                return right
+        return root
         
-        if root.val == p.val or root.val == q.val:
-            return root
-        
-        return left or right  
 # @lc code=end
 
