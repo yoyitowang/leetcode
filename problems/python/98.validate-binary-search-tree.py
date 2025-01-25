@@ -13,23 +13,21 @@
 #         self.right = right
 class Solution:
     def __init__(self):
-        self.vec = []
+        self.prev = None
 
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        self.treversal(root)
-        for i in range(1, len(self.vec)):
-            if self.vec[i] <= self.vec[i-1]:
-                return False
-        
-        return True
+        return self.treversal(root)
         
     def treversal(self, node):
         if not node:
-            return 
+            return True
         # left > root > right
-        if node.left: self.treversal(node.left)
-        self.vec.append(node.val)
-        if node.right: self.treversal(node.right)
+        if not self.treversal(node.left):
+            return False
+        if self.prev != None and self.prev >= node.val:
+            return False
+        self.prev = node.val
+        return self.treversal(node.right)
     
 # @lc code=end
 
