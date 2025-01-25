@@ -13,16 +13,6 @@
 #         self.right = right
 class Solution:
     def findMode(self, root: Optional[TreeNode]) -> List[int]:
-        # TC: O(n+m)
-        # SC: O(n)
-        # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
-class Solution:
-    def findMode(self, root: Optional[TreeNode]) -> List[int]:
         # TC: O(n)
         # SC: O(1) + O(h) stack of tree
         self.mode = []
@@ -50,8 +40,6 @@ class Solution:
         dfs(root)
 
         return self.mode
-
-
             
 # @lc code=end
 
