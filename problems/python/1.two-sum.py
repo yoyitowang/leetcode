@@ -11,10 +11,9 @@ class Solution:
         # SC: O(n)
         ht = {}
         for idx, num in enumerate(nums):
-            c = target - num
-            if c in ht:
-                return [ht[c], idx]
-            ht[num] = idx
+            if num in ht:
+                return [ht[num], idx]
+            ht[target-num] = idx
         
 # @lc code=end
 
