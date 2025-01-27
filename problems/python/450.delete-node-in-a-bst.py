@@ -17,29 +17,19 @@ class Solution:
         # SC: O(h)
         if not root:
             return None
-
         if root.val == key:
-            # None
-            if root.left == root.right:
-                return None
-            # no right
-            elif root.right is None:
+            if root.right is None:
                 return root.left
-            # no left
-            elif root.left is None:
-                return root.right
-            # left and right
-            else:
-                cur = root.right
-                while cur.left:
-                    cur = cur.left
-                cur.left = root.left
-                return root.right
+            cur = root.right
+            while cur.left:
+                cur = cur.left
+            cur.left = root.left
+            root = root.right
         elif root.val > key:
             root.left = self.deleteNode(root.left, key)
         else:
             root.right = self.deleteNode(root.right, key)
-        
+
         return root
 # @lc code=end
 
