@@ -12,9 +12,6 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def __init__(self):
-        self.prev = None
-
     def deleteNode(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:
         # TC: O(h)/O(log n)
         # SC: O(h)
