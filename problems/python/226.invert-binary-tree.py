@@ -34,6 +34,17 @@ class Solution:
             if node.right: que.append(node.right)
         
         return root
+
+        # recursive
+        # TC: O(n)
+        # SC: O(h)
+        if not root:
+            return None
+        root.left = self.invertTree(root.left)
+        root.right = self.invertTree(root.right)
+        root.left, root.right = root.right, root.left
+        
+        return root
           
 # @lc code=end
 
