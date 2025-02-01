@@ -12,6 +12,8 @@
 #         self.next = next
 class Solution:
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        # TC: O(n)
+        # SC: O(1)
         prev = None
         cur = head
         while cur:
