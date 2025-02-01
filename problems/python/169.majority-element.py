@@ -8,13 +8,19 @@
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
         # TC: O(n)
-        # SC: O(n)
-        ht = defaultdict(int)
-        n = len(nums)
-        
+        # SC: O(1)
+        cnt = 0
+        candidate = None
+
         for num in nums:
-            ht[num] += 1
-            if ht[num] > n/2:
-                return num     
+            if cnt == 0:
+                candidate = num
+                cnt = 1
+            elif num == candidate:
+                cnt += 1
+            else:
+                cnt -= 1
+
+        return candidate
 # @lc code=end
 
