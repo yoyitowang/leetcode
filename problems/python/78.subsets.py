@@ -8,7 +8,7 @@
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
         # TC: O(2^n)
-        # SC: O(n)
+        # SC: O(n*2^n)
         self.ans = []
 
         def backtracking(start, path):
