@@ -22,5 +22,12 @@ class Solution:
 
         backtracking(0, [])
         return self.ans 
+    
+        # iterative
+        result = [[]]
+
+        for num in nums:
+            result += [res + [num] for res in result]
+        return result
 # @lc code=end
 
