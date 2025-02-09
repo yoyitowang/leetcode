@@ -9,15 +9,15 @@ class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
         # TC: O(n)
         # SC: O(1)
-        res = float('-inf')
-        total = 0
-        for i in range(len(nums)):
-            total += nums[i]
-            if total > res:
-                res = total
-            if total < 0:
-                total = 0
-        return res
+        ans = float('-inf')
+        acc = 0
+        for num in nums:
+            acc += num
+            ans = max(ans, acc)
+            if acc < 0:
+                acc = 0
+
+        return ans
     
         # # DP
         # # TC: O(n)
