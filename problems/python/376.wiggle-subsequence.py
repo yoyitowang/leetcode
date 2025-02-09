@@ -9,15 +9,15 @@ class Solution:
     def wiggleMaxLength(self, nums: List[int]) -> int:
         # TC: O(n)
         # SC: O(1)
-        if len(nums) <= 1:
-            return len(nums)
-        cnt = 1
         prev = 0
+        cnt = 1
+
         for i in range(1, len(nums)):
-            cur = nums[i]-nums[i-1]
-            if (cur > 0 and prev <= 0) or (cur < 0 and prev >= 0):
+            diff = nums[i] - nums[i-1]
+            if diff != 0 and prev * diff <= 0:
                 cnt += 1
-                prev = cur
-        return cnt
+                prev = diff
+
+        return cnt 
 # @lc code=end
 
