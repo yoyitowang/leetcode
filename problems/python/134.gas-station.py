@@ -8,22 +8,19 @@
 class Solution:
     def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
         # TC: O(n)
-        # SC: O(n)
+        # SC: O(1)
         n = len(gas)
-        diff = [0] * n
-        for i in range(n):
-            diff[i] = gas[i] - cost[i]
+        total = cur = ans = 0
 
-        if sum(diff) < 0:
-            return -1
-
-        acc = 0
-        ans = 0
         for i in range(n):
-            acc += diff[i]
-            if acc < 0:
-                acc = 0
+            total += gas[i] - cost[i]
+            cur += gas[i] - cost[i]
+            if cur < 0:
                 ans = i + 1
+                cur = 0
+        
+        if total < 0:
+            return -1
         return ans                
 # @lc code=end
 
