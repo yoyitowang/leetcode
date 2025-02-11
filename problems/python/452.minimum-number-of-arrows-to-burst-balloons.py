@@ -23,6 +23,26 @@ class Solution:
                 arrow_point = end
         
         return arrow
+    
+        # TC: O(n log n)
+        # SC: O(1)
+        if not points:
+            return 0
+
+        points.sort(key=lambda x: x[0])
+
+        arrow = 1
+        arrow_point = points[0][1]
+        
+        for i in range(1, len(points)):
+            start, end = points[i]
+            if start > arrow_point:
+                arrow += 1
+                arrow_point = end
+            else:
+                arrow_point = min(arrow_point, end)
+
+        return arrow
                    
 # @lc code=end
 
