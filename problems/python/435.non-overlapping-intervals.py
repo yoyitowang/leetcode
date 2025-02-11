@@ -26,5 +26,24 @@ class Solution:
                 min_end = end
 
         return ans
+    
+        #
+        if not intervals:
+            return 0
+
+        intervals.sort(key=lambda x: x[1])
+
+        ans = 0
+        min_end = intervals[0][1]
+
+        for i in range(1, len(intervals)):
+            start, end = intervals[i]
+            if start < min_end:
+                ans += 1
+            else:
+                min_end = end
+
+
+        return ans
 # @lc code=end
 
