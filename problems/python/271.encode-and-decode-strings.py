@@ -1,6 +1,8 @@
 class Solution:
 
     def encode(self, strs: List[str]) -> str:
+        # TC: O(n)
+        # SC: O(1)
         ans = ""
         for char in strs:
             ans += f"{len(char)}#{char}"
@@ -8,6 +10,9 @@ class Solution:
         return ans
 
     def decode(self, s: str) -> List[str]:
+        # TC: O(n)
+        # SC: O(1)
+        
         ans = []
         i = 0
         while i < len(s):
