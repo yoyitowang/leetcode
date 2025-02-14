@@ -7,6 +7,8 @@
 # @lc code=start
 class Solution:
     def fib(self, n: int) -> int:
+        # TC: O(n)
+        # SC: O(1)
         dp = [0, 1]
         if n <= 1:
             return dp[n]
