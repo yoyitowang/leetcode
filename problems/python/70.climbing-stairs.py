@@ -7,14 +7,15 @@
 # @lc code=start
 class Solution:
     def climbStairs(self, n: int) -> int:
-        # TC: O(n*1)
+        # TC: O(n)
         # SC: O(1)
         if n <= 2:
             return n
-        dp = [0, 1, 2]
+        f0 = 1
+        f1 = 2
         for i in range(3, n+1):
-            dp[0], dp[1], dp[2] = dp[1], dp[2], dp[1]+dp[2]
-        
-        return dp[2]  
+            f0, f1 = f1, f0 + f1
+
+        return f1
 # @lc code=end
 
