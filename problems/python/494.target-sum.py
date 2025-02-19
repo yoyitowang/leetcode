@@ -20,16 +20,33 @@ class Solution:
         # p=capacity
         target //= 2
 
-        n = len(nums)
+        # recursive
+        # n = len(nums)
+        # @cache
+        # def dfs(i, c):
+        #     if i < 0:
+        #         return 1 if c == 0 else 0
+        #     if nums[i] > c:
+        #         return dfs(i-1, c)
+        #     return dfs(i-1, c) + dfs(i-1, c-nums[i])
+        # return dfs(n-1, target)
 
-        @cache
-        def dfs(i, c):
-            if i < 0:
-                return 1 if c == 0 else 0
-            if nums[i] > c:
-                return dfs(i-1, c)
-            return dfs(i-1, c) + dfs(i-1, c-nums[i])
+        # DP - 2 dim
+        # TC: O(n*target)
+        # SC: O(n*target)
+        # f[i][c] = f[i-1][c] + f[i-1][c-nums[i]]
+        # f[i+1][c] = f[i][c] + f[i][c-nums[i]]
+        n = len(nums)
+        f = [[0 for _ in range(target+1)] for _ in range(n+1)]
+        f[0][0] = 1
+        for i, num in enumerate(nums):
+            for c in range(target+1):
+                if c < num:
+                    f[i+1][c] = f[i][c]
+                else:
+                    f[i+1][c] = f[i][c] + f[i][c-num]
         
-        return dfs(n-1, target)
+        return f[n][target]
+        
 # @lc code=end
 
