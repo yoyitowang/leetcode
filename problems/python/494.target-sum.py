@@ -36,17 +36,31 @@ class Solution:
         # SC: O(n*target)
         # f[i][c] = f[i-1][c] + f[i-1][c-nums[i]]
         # f[i+1][c] = f[i][c] + f[i][c-nums[i]]
+        # n = len(nums)
+        # f = [[0 for _ in range(target+1)] for _ in range(n+1)]
+        # f[0][0] = 1
+        # for i, num in enumerate(nums):
+        #     for c in range(target+1):
+        #         if c < num:
+        #             f[i+1][c] = f[i][c]
+        #         else:
+        #             f[i+1][c] = f[i][c] + f[i][c-num]
+        
+        # return f[n][target]
+
+        # TC: O(n*target)
+        # SC: O(2*target)
         n = len(nums)
-        f = [[0 for _ in range(target+1)] for _ in range(n+1)]
+        f = [[0 for _ in range(target+1)] for _ in range(2)]
         f[0][0] = 1
         for i, num in enumerate(nums):
             for c in range(target+1):
                 if c < num:
-                    f[i+1][c] = f[i][c]
+                    f[(i+1)%2][c] = f[i%2][c]
                 else:
-                    f[i+1][c] = f[i][c] + f[i][c-num]
+                    f[(i+1)%2][c] = f[i%2][c] + f[i%2][c-num]
         
-        return f[n][target]
+        return f[n%2][target]
         
 # @lc code=end
 
