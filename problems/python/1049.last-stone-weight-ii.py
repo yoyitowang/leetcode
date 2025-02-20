@@ -7,9 +7,10 @@
 # @lc code=start
 class Solution:
     def lastStoneWeightII(self, stones: List[int]) -> int:
+        # https://leetcode.cn/problems/last-stone-weight-ii/solutions/1410997/by-flix-m5mx/
         # sum = n1 + n2
         # n1 <= (sum)/2
-        
+
         # n = len(stones)
         # total = sum(stones)
         # cap = total//2
