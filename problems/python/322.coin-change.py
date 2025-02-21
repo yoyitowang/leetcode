@@ -31,18 +31,31 @@ class Solution:
         # TC: O(n*amount)
         # SC: O(n*amount)
         
-        n = len(coins)
-        f = [[inf] * (amount+1) for _ in range(n+1)]
-        f[0][0] = 0
+        # n = len(coins)
+        # f = [[inf] * (amount+1) for _ in range(n+1)]
+        # f[0][0] = 0
 
-        for i, coin in enumerate(coins):
-            for j in range(amount+1):
-                if coin > j:
-                    f[i+1][j] = f[i][j]
-                else:
-                    f[i+1][j] = min(f[i][j], f[i+1][j-coin]+1)
+        # for i, coin in enumerate(coins):
+        #     for j in range(amount+1):
+        #         if coin > j:
+        #             f[i+1][j] = f[i][j]
+        #         else:
+        #             f[i+1][j] = min(f[i][j], f[i+1][j-coin]+1)
         
-        ans = f[-1][-1]
+        # ans = f[-1][-1]
+        # return ans if ans < inf else -1
+
+        # optimize O(N)
+        # TC: O(n*amount)
+        # SC: O(n)
+        n = len(coins)
+
+        f = [inf for _ in range(amount+1)]
+        f[0] = 0
+        for coin in coins:
+            for j in range(coin, amount+1):
+                f[j] = min(f[j], f[j-coin]+1)
+        ans = f[amount]
         return ans if ans < inf else -1
    
 # @lc code=end
