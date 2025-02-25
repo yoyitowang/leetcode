@@ -30,3 +30,40 @@ def dfs(i, c):
 
 print(dfs(n-1, cap))
 #```
+
+#```
+cap, n = map(int, input().split())
+
+weights = list(map(int, input().split()))
+prices = list(map(int, input().split()))
+amounts = list(map(int, input().split()))
+
+expanded_weights = []
+expanded_prices = []
+
+for i in range(n):
+    weight = weights[i]
+    price = prices[i]
+    amount = amounts[i]
+    k = 1
+    while k <= amount:
+        expanded_weights.append(k * weight)
+        expanded_prices.append(k * price)
+        amount -= k
+        k *= 2
+    if amount > 0:
+        expanded_weights.append(amount * weight)
+        expanded_prices.append(amount * price)
+    
+
+n = len(expanded_weights)
+f = [0] * (cap+1)
+# item -> knapsack
+for i in range(n):
+    weight = expanded_weights[i]
+    price = expanded_prices[i]
+    for c in range(cap, weight-1, -1):
+        f[c] = max(f[c], f[c-weight] + price)
+        
+print(f[cap])
+#```
