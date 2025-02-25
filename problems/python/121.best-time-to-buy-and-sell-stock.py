@@ -14,6 +14,16 @@ class Solution:
         for price in prices:
             min_p = min(min_p, price)
             profit = max(profit, price-min_p)
-        return profit   
+        return profit
+
+        # dp 
+        # buy / not buy
+        f0 = -prices[0]
+        f1 = 0
+        for i in range(1, len(prices)):
+            f0 = max(f0, -prices[i])
+            f1 = max(f0+prices[i], f1)
+
+        return f1   
 # @lc code=end
 
