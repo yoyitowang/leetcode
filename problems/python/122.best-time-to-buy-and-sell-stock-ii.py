@@ -13,6 +13,17 @@ class Solution:
         for i in range(1, len(prices)):
             profit += max(0, prices[i]-prices[i-1])
 
-        return profit  
+        return profit
+    
+        # dp solution
+        # TC: O(n)
+        # SC: O(1)
+        # hold/not hold
+        f0 = -prices[0]
+        f1 = 0
+        for i in range(1, len(prices)):
+            f0 = max(f0, f1-prices[i])
+            f1 = max(f0+prices[i], f1)
+        return max(f0, f1)
 # @lc code=end
 
