@@ -24,6 +24,25 @@ class Solution:
             f[i][3] = max(f[i-1][3], f[i-1][2]-prices[i])
             f[i][4] = max(f[i-1][4], f[i-1][3]+prices[i])
 
-        return f[-1][4]      
+        return f[-1][4]
+
+        # TC: O(n)
+        # SC: O(1)
+        n = len(prices)
+        f = [0] * 5
+        # 1: hold
+        # 2: no hold
+        # 3: hold
+        # 4: no hold
+        f[1] = f[3] = -prices[0]
+
+        for i in range(1, n):
+            f[4] = max(f[4], f[3]+prices[i])
+            f[3] = max(f[3], f[2]-prices[i])
+            f[2] = max(f[2], f[1]+prices[i])
+            f[1] = max(f[1], f[0]-prices[i])
+            f[0] = f[0]
+
+        return f[-1]
 # @lc code=end
 
