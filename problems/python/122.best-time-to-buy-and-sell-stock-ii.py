@@ -25,5 +25,20 @@ class Solution:
             f0 = max(f0, f1-prices[i])
             f1 = max(f0+prices[i], f1)
         return max(f0, f1)
+    
+        # dfs
+        # TC: O(n)
+        # SC: O(n)
+        @cache
+        def dfs(i, hold):
+            if i < 0:
+                return -inf if hold else 0
+            if hold:
+                return max(dfs(i-1, True), dfs(i-1, False)-prices[i])
+            
+            return max(dfs(i-1, False), dfs(i-1, True)+prices[i])
+
+        n = len(prices)
+        return dfs(n-1, False)
 # @lc code=end
 
