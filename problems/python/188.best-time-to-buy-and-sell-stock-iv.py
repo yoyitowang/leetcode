@@ -29,21 +29,37 @@ class Solution:
         #             f[i][j] = max(f[i-1][j], f[i-1][j-1]+price)
         # return f[-1][-1]
     
-        # TC: O(n*k)
-        # SC: O(n*k)
+        # # TC: O(n*k)
+        # # SC: O(n*k)
 
-        @cache
-        def dfs(i, k, hold):
-            if k < 0:
-                return -inf
-            if i < 0:
-                return -inf if hold else 0
-            if hold:
-                return max(dfs(i-1, k, True), dfs(i-1, k-1, False)-prices[i])
+        # @cache
+        # def dfs(i, k, hold):
+        #     if k < 0:
+        #         return -inf
+        #     if i < 0:
+        #         return -inf if hold else 0
+        #     if hold:
+        #         return max(dfs(i-1, k, True), dfs(i-1, k-1, False)-prices[i])
 
-            return max(dfs(i-1, k, False), dfs(i-1, k, True)+prices[i])
+        #     return max(dfs(i-1, k, False), dfs(i-1, k, True)+prices[i])
+
+        # n = len(prices)
+        # return dfs(n-1, k, False)
 
         n = len(prices)
-        return dfs(n-1, k, False)
+        # f[i][k][j]
+        f = [[-inf] * 2 for _ in range(k+2)]
+        for i in range(1, k+2):
+            f[i][0] = 0
+
+        for i in range(n):
+            price = prices[i]
+            for j in range(1, k+2):
+                # not hold
+                f[j][0] = max(f[j][0], f[j][1]+price)
+                # hold
+                f[j][1] = max(f[j][1], f[j-1][0]-price)
+        return f[k+1][0]
+        
 # @lc code=end
 
