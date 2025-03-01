@@ -7,17 +7,27 @@
 # @lc code=start
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
+        # # TC: O(n)
+        # # SC: O(1)
+        # ans = -inf
+        # acc = 0
+        # for num in nums:
+        #     acc += num
+        #     ans = max(ans, acc)
+        #     if acc < 0: acc = 0
+        # return ans
+    
         # TC: O(n)
-        # SC: O(1)
-        ans = float('-inf')
-        acc = 0
-        for num in nums:
-            acc += num
-            ans = max(ans, acc)
-            if acc < 0:
-                acc = 0
+        # SC: O(n)
+        n = len(nums)
+        
+        @cache
+        def dfs(i):
+            if i < 0:
+                return 0
+            return max(nums[i], dfs(i-1)+nums[i])
 
-        return ans
+        return max(dfs(i) for i in range(n))
     
         # # DP
         # # TC: O(n)
