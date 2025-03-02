@@ -31,22 +31,16 @@ class Solution:
 
         # return dfs(s-1, t-1)     
     
+        # TC: O(n1*n2)
+        # SC: O(n2)
+        n1, n2 = len(word1), len(word2)
+        f = list(range(n2+1))
 
-        s = len(word1)
-        t = len(word2)
-
-        f = [[0] * (t+1) for _ in range(s+1)]
-        # i < 0
-        f[0] = list(range(t+1))
-        for i, x in enumerate(word1):
-            # j < 0
-            f[i+1][0] = i + 1
-            for j, y in enumerate(word2):
-                if x == y:
-                    f[i+1][j+1] = f[i][j]
-                else:
-                    f[i+1][j+1] = min(f[i+1][j], f[i][j+1], f[i][j]) + 1
-        
-        return f[s][t]
+        for i, w1 in enumerate(word1):
+            prev = f[0]
+            f[0] = i+1
+            for j, w2 in enumerate(word2):
+                prev , f[j+1] = f[j+1], prev if w1 == w2 else min(prev, f[j], f[j+1]) + 1
+        return f[n2]
 # @lc code=end
 
