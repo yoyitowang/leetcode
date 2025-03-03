@@ -17,11 +17,11 @@ class Solution:
                 ans[st.pop()] = num
             st.append(i)
         for i, num in enumerate(nums):
+            # st is empty: no more need to be updated -> return
+            if not st:
+                return res
             while st and nums[st[-1]] < num:
-                if ans[st[-1]] == -1:
-                    ans[st.pop()] = num
-                else:
-                    st.pop()
+                ans[st.pop()] = num
             st.append(i)
 
         return ans
