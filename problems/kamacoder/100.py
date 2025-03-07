@@ -32,3 +32,46 @@ def main():
     print(ans)
 
 main()
+
+# BFS
+n, m = map(int, input().split())
+
+arr = []
+for _ in range(n):
+    arr.append(list(map(int, input().split())))
+
+visited = [[False] * m for _ in range(n)]
+directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+from collections import deque
+def bfs(i, j):
+    que = deque([])
+    que.append([i, j])
+    visited[i][j] = True
+    res = 1
+
+    while que:
+        x, y = que.popleft()
+        for dx, dy in directions:
+            x_next = x + dx
+            y_next = y + dy
+            if 0 <= x_next < n and 0 <= y_next < m and arr[x_next][y_next] == 1 and visited[x_next][y_next] == False:
+                res += 1
+                visited[x_next][y_next] = True
+                que.append([x_next,  y_next])
+            
+    return res
+    
+    
+    
+
+def main():
+    ans = 0
+
+    for i in range(n):
+        for j in range(m):
+            if arr[i][j] == 1 and visited[i][j] == False:
+                ans = max(ans, bfs(i, j))
+
+    print(ans)
+
+main()
