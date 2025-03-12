@@ -9,24 +9,27 @@ class Solution:
     def evalRPN(self, tokens: List[str]) -> int:
         # TC: O(n)
         # SC: O(n)
-        op = {"+", "-", "*", "/"}
+        ht = {"+", "-", "*", "/"}
         st = []
+        # num -> stack
+        # when symbol -> take 2 num from stack
         for token in tokens:
-            if token not in op:
+            if token not in ht:
                 st.append(int(token))
             else:
-                n2 = st.pop()
-                n1 = st.pop()
-                if token == "+":
-                    st.append(n1+n2)
-                elif token == "-":
-                    st.append(n1-n2)
-                elif token == "*":
-                    st.append(n1*n2)
-                elif token == "/":
-                    st.append(int(n1/n2))
-        
-        return st.pop()
+                num2 = st.pop()
+                num1 = st.pop()
+                match token:
+                    case "+":
+                        new = num1 + num2
+                    case "-":
+                        new = num1 - num2
+                    case "*":
+                        new = num1 * num2
+                    case "/":
+                        new = int(num1 / num2)
+                st.append(new)
+        return st.pop() if st else 0
     
 # @lc code=end
 
