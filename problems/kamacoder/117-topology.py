@@ -9,31 +9,29 @@ class KahnTopologicalSort:
         self.graph[u].append(v)
 
     def topological_sort(self):
-        # count in-degree
         in_degree = [0] * self.V
-
+        # count each in_degree of vertex
         for vals in self.graph.values():
             for v in vals:
                 in_degree[v] += 1
-        # priority queue: store 0 in-degree node
+        
+        # add in_degree = 0 to queue
         que = deque([])
-        for i in range(self.V):
-            if in_degree[i] == 0:
+        for i, x in enumerate(in_degree):
+            if x == 0:
                 que.append(i)
-
+        
         res = []
-        count = 0
         while que:
             vertex = que.popleft()
             res.append(vertex)
-            count += 1
+            
+            for _next in self.graph[vertex]:
+                in_degree[_next] -= 1
+                if in_degree[_next] == 0:
+                    que.append(_next)
 
-            for neighbor in self.graph[vertex]:
-                in_degree[neighbor] -= 1
-                if in_degree[neighbor] == 0:
-                    que.append(neighbor)
-
-        if self.V != count:
+        if len(res) != self.V:
             return [-1]
 
         return res
