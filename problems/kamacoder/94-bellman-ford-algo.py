@@ -40,4 +40,58 @@ if __name__ == "__main__":
         print("unconnected")
     else:
         print(bell.dist[n])
+        
+---
+# SPFA
+from collections import deque, defaultdict
+
+class SPFA:
+    def __init__(self, vertices):
+        self.V = vertices
+        self.graph = defaultdict(list)
+        self.dist = [float('inf')] * vertices
+        self.count = 0
+
+    def add_edge(self, u, v, w):
+        self.graph[u].append((v, w))
+
+    def find_shortest_costs(self, source):
+        visited = [False] * self.V
+        self.dist[source] = 0
+        que = deque([source])
+        # visited[source] = True
+
+        while que:
+            u = que.popleft()
+            visited[u] = False
+
+            # check every next path of vertex u
+            for v, w in self.graph[u]:
+                # only when new cost < dist[u] -> update
+                if self.dist[u] + w < self.dist[v]:
+                    self.dist[v] = self.dist[u] + w
+
+                # check is already in queue            
+                if not visited[v]:
+                    self.count += 1
+                    # check negative cycle
+                    if self.count >= self.V:
+                        return False # negaive cycle
+                    que.append(v)
+                    visited[v] = True
+        return True
+
+if __name__ == "__main__":
+    n, m = map(int, input().strip().split())
+    edges = []
+    spfa = SPFA(n+1)
+
+    for _ in range(m):
+        src, dest, weight = map(int, input().strip().split())
+        spfa.add_edge(src, dest, weight)
+
+    if not spfa.find_shortest_costs(1) or spfa.dist[n] == float('inf'):
+        print("unconnected")
+    else:
+        print(spfa.dist[n])
 
