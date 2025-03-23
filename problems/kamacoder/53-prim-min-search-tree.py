@@ -1,99 +1,95 @@
-import heapq
 from collections import defaultdict
+import heapq
 
 class PrimMST:
     def __init__(self, vertex):
         self.V = vertex
         self.graph = defaultdict(list)
 
-    def add_edge(self, u, v, weight):
-        # graph {u: [(v, weight)]}
-        self.graph[u].append((v, weight))
-        self.graph[v].append((u, weight))
+    def add_edge(self, u, v, w):
+        self.graph[u].append((v, w))
+        self.graph[v].append((u, w))
 
-    def prim_mst(self):
-        # init a start vertex
-        start_vertex = 0
-        # check vertex is visited
-        visited = [False] * self.V
-        min_weight = [10001] * self.V
+    def find_shortest_path(self, source):
+        # init a vertex and add to min tree
+        # find the cloest vertex of the tree by minmum weight
+        # update the minmum queue and tree
+
+        # init each vertex distance in minmum tree => inf, start vertex is 0
+        min_dist = [float('inf')] * self.V
+        min_dist[source] = 0
         edge_count = 0
-        
-        # priority queue: (weight, vertex)
-        pq = [(0, start_vertex)] 
-        while pq and edge_count < self.V:
-            weight, current = heapq.heappop(pq)
-            
-            # if vertex is visited, skip 
-            if visited[current]:
-                continue
-            
-            visited[current] = True # marked as visited
-            edge_count += 1         # edge count plus 1
-            min_weight[current] = min(min_weight[current], weight) # update the min weight of i-th vertex
+        # when vertex is visited, no need to add into minmum tree
+        visited = [False] * self.V 
+        # priority queue is used to update and add the new vertex to tree
+        pq = [(0, source)]
 
-            # check the neighborhood of vertex and append the vertex into priority queue
-            for next_vertex, next_weight in self.graph[current]:
-                if not visited[next_vertex]:
-                    heapq.heappush(pq, (next_weight, next_vertex))
-        
-        return min_weight
+        while pq and edge_count < self.V:
+            weight, u = heapq.heappop(pq)
+
+            if visited[u]: # already in tree
+                continue
+
+            visited[u] = True
+            min_dist[u] = min(min_dist[u], weight) # update the minmum weight of vertex in tree
+            edge_count += 1
+
+            # add the cloest vertex into queue
+            for v, w in self.graph[u]:
+                if not visited[v]: # add unvisited vertex into queue and waiting for updating
+                    heapq.heappush(pq, (w, v))
+        return min_dist
+import heapq
 
 class UnionFind:
-    def __init__(self, size):
-        self.parent = [i for i in range(size)]
-        self.rank = [1] * (size)
-
+    def __init__(self, n):
+        self.parent = [i for i in range(n)]
+        self.rank = [1] * n
+    
     def find(self, x):
         if self.parent[x] != x:
             self.parent[x] = self.find(self.parent[x])
         return self.parent[x]
 
     def union(self, x, y):
-        rX = self.find(x)
-        rY = self.find(y)
+        rx = self.find(x)
+        ry = self.find(y)
 
-        if rX != rY:
-            if self.rank[rX] > self.rank[rY]:
-                self.parent[rY] = rX
-            elif self.rank[rX] < self.rank[rY]:
-                self.parent[rX] = rY
+        if rx != ry:
+            if self.rank[rx] > self.rank[ry]:
+                self.parent[ry] = rx
+            elif self.rank[rx] < self.rank[ry]:
+                self.parent[rx] = ry
             else:
-                self.parent[rY] = rX
-                self.rank[rX] += 1
-            return False
-
-        return True
-
-    def isSame(self, x, y):
-        return self.find(x) == self.find(y)
+                self.parent[ry] = rx
+                self.rank[rx] += 1
+            return True
+        return False
 
 class Kruskal:
     def __init__(self, vertex):
         self.V = vertex
         self.pq = []
-        self.uf = UnionFind(vertex)
 
-    def add_edge(self, u, v, weight):
-        heapq.heappush(self.pq, (weight, (u, v)))
+    def add_edge(self, u, v, w):
+        # push all edge into priority queue
+        heapq.heappush(self.pq, (w, (u, v)))
 
-    def kruskal_mst(self):
-        
-        min_weight = 0
+    def find_shortest_path(self, source):
+        # get the shortest weight of edge and check are u and v in the same group(use the union find)
+        uf = UnionFind(self.V)
+        visited = [False] * self.V
+        min_dist = 0
         edge_count = 0
-        n = len(self.pq)
         
-        for _ in range(n):
-            weight, (v1, v2) = heapq.heappop(self.pq)
-            if not self.uf.union(v1, v2):
-                min_weight += weight
+        while self.pq and edge_count < self.V:
+            w, (u, v) = heapq.heappop(self.pq)
+            # can union -> not same group
+            if uf.union(u, v):
+                min_dist += w
                 edge_count += 1
-            
-            if edge_count == self.V:
-                break
-        return min_weight
-        
-        
+                
+        return min_dist
 
 if __name__ == '__main__':
     # V, E = map(int, input().split())
