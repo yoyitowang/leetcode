@@ -39,56 +39,56 @@ class PrimMST:
                 if not visited[v]: # add unvisited vertex into queue and waiting for updating
                     heapq.heappush(pq, (w, v))
         return min_dist
-import heapq
 
 class UnionFind:
-    def __init__(self, n):
-        self.parent = [i for i in range(n)]
-        self.rank = [1] * n
-    
+    def __init__(self, size):
+        self.parent = [i for i in range(size)]
+        self.rank = [1] * (size)
+
     def find(self, x):
         if self.parent[x] != x:
             self.parent[x] = self.find(self.parent[x])
         return self.parent[x]
 
     def union(self, x, y):
-        rx = self.find(x)
-        ry = self.find(y)
+        rX = self.find(x)
+        rY = self.find(y)
 
-        if rx != ry:
-            if self.rank[rx] > self.rank[ry]:
-                self.parent[ry] = rx
-            elif self.rank[rx] < self.rank[ry]:
-                self.parent[rx] = ry
+        if rX != rY:
+            if self.rank[rX] > self.rank[rY]:
+                self.parent[rY] = rX
+            elif self.rank[rX] < self.rank[rY]:
+                self.parent[rX] = rY
             else:
-                self.parent[ry] = rx
-                self.rank[rx] += 1
-            return True
-        return False
+                self.parent[rY] = rX
+                self.rank[rX] += 1
+            return False
+
+        return True
+
+    def isSame(self, x, y):
+        return self.find(x) == self.find(y)
 
 class Kruskal:
     def __init__(self, vertex):
         self.V = vertex
         self.pq = []
-
+    
     def add_edge(self, u, v, w):
-        # push all edge into priority queue
         heapq.heappush(self.pq, (w, (u, v)))
 
     def find_shortest_path(self, source):
-        # get the shortest weight of edge and check are u and v in the same group(use the union find)
         uf = UnionFind(self.V)
-        visited = [False] * self.V
         min_dist = 0
-        edge_count = 0
+        count = 0
         
-        while self.pq and edge_count < self.V:
+        while self.pq and count < self.V:
             w, (u, v) = heapq.heappop(self.pq)
-            # can union -> not same group
+            
             if uf.union(u, v):
+                count += 1
                 min_dist += w
-                edge_count += 1
-                
+
         return min_dist
 
 if __name__ == '__main__':
