@@ -43,42 +43,46 @@ if __name__ == '__main__':
 
 ---
 # SPFA
-from collections import defaultdict, deque
+from collections import deque, defaultdict
 
 class SPFA:
     def __init__(self, vertices):
         self.V = vertices
         self.dist = [float('inf')] * vertices
         self.graph = defaultdict(list)
-        self.count = [0] * vertices
 
     def add_edge(self, u, v, w):
         self.graph[u].append((v, w))
 
-    def find_shortest_path(self, source):
-        in_queue = [False] * self.V
-        que = deque([source])
-        # init
+    def get_path(self, target):
+        pass
+
+    def find_shortest_costs(self, source, target):
+        in_que = [False] * self.V
         self.dist[source] = 0
-        in_queue[source] = True
-        
+        in_que[source] = True
+        que = deque([source])
+        count = [0] * self.V
+
         while que:
             u = que.popleft()
-            in_queue[u] = False
+            in_que[u] = False
 
             for v, w in self.graph[u]:
                 if self.dist[u] + w < self.dist[v]:
                     self.dist[v] = self.dist[u] + w
-                
-                    if not in_queue[v]:
-                        self.count[v] += 1
-                        if self.count[v] >= self.V:
-                            print("circle")
-                            exit()
+                    
+                    if not in_que[v]:
+                        count[v] += 1
+                        if count[v] >= self.V:
+                            return 'circle'
                         que.append(v)
-                        in_queue[v] = True
-        
-if __name__ == '__main__':
+                        in_que[v] = True
+                        
+        return "unconnected" if self.dist[target] == float('inf') else self.dist[target]
+
+
+if __name__ == "__main__":
     n, m = map(int, input().split())
     spfa = SPFA(n+1)
 
@@ -86,10 +90,5 @@ if __name__ == '__main__':
         u, v, w = map(int, input().split())
         spfa.add_edge(u, v, w)
 
-    spfa.find_shortest_path(1)
-    ans = spfa.dist[n]
-    if ans != float('inf'):
-        print(ans)
-    else: # can't arrive final vertex
-        print("unconnected")
-        
+    result = spfa.find_shortest_costs(1, n)
+    print(result)
