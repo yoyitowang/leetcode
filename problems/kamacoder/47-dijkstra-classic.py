@@ -60,33 +60,53 @@ if __name__ == "__main__":
 
 
 ---
-class DijkstraClassic:
+from collections import defaultdict
+import heapq
+
+class DijkstraOptimized:
     def __init__(self, vertices):
         self.V = vertices
-        self.graph = defaultdict(dict)
-        for i in range(vertices):
-            self.graph[i][i] = 0
-        
-    def add_edge(self, u, v, weight):
-        self.graph[u][v] = weight
-        
-    def dijkstra(self, source):
-        import heapq
-        # init dist array and visited mark
-        dist = [float('inf')] * self.V
-        dist[source] = 0 # start vertex
-        visited = [False] * self.V
-        pq = [(0, source)]
+        self.graph = defaultdict(list)
 
-        # find the closest vertex
-        while pq:
-            weight, u = heapq.heappop(pq)
-            visited[u] = True
-
-            for v, w in self.graph[u].items():
-                new_dist = dist[u] + w
-                if not visited[v] and new_dist < dist[v]:
-                    dist[v] = new_dist
-                    heapq.heappush(pq, (new_dist, v))
+    def add_edge(self, u, v, w):
+        self.graph[u].append((w, v))
             
+    def find_the_shortest_path(self, source):
+        dist = [float('inf')] * self.V
+        visited = [False] * self.V
+        dist[source] = 0
+        count = 0
+
+        pq = [(0, source)]
+        while pq and count < self.V:
+            w, u = heapq.heappop(pq)
+
+            visited[u] = True
+            for weight, v in self.graph[u]:
+                if not visited[v] and dist[u] + weight < dist[v]:
+                    dist[v] = dist[u] + weight
+                    heapq.heappush(pq, (dist[u]+weight, v))
+
         return dist
+
+def solve():
+    N, M = map(int, input().split())
+    
+    dijkstra = DijkstraOptimized(N + 1)
+    
+    for _ in range(M):
+        u, v, w = map(int, input().split())
+        dijkstra.add_edge(u, v, w)
+    
+    # caculation starts from vertex = 1
+    distances = dijkstra.find_the_shortest_path(1)
+
+    # check last vertex, if it's inf -> not arriable    
+    return distances[N] if distances[N] != float('inf') else -1
+
+def main():
+    result = solve()
+    print(result)
+
+if __name__ == "__main__":
+    main()
