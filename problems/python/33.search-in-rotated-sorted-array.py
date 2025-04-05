@@ -11,12 +11,12 @@ class Solution:
         # SC: O(1)
         n = len(nums)
         left, right = 0, n-1
+
         while left <= right:
-            mid = left + ((right - left) >> 1)
+            mid = (left+right)//2
             if nums[mid] == target:
                 return mid
-            
-            # sorted
+
             if nums[left] <= nums[mid]:
                 if nums[left] <= target < nums[mid]:
                     right = mid - 1
@@ -27,7 +27,10 @@ class Solution:
                     left = mid + 1
                 else:
                     right = mid - 1
-            
-        return -1   
+
+            if left == n:
+                return -1
+
+        return left if nums[left] == target else -1
 # @lc code=end
 
