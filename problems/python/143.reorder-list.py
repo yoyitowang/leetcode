@@ -16,27 +16,23 @@ class Solution:
         Do not return anything, modify head in-place instead.
         """
         # find the middle node
-        slow, fast = head, head.next
+        slow = fast = head
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
 
-        # reverse
         second = slow.next
         prev = slow.next = None
+        # reverse the second nodes
         while second:
             tmp = second.next
             second.next = prev
             prev, second = second, tmp
 
-        # merge first and second
         first, second = head, prev
-        
         while second:
-            tmp1, tmp2 = first.next, second.next
-            first.next = second
-            second.next = tmp1
-            first, second = tmp1, tmp2
-            
+            t1, t2 = first.next, second.next
+            first.next, second.next = second, t1
+            first, second = t1, t2
 # @lc code=end
 
