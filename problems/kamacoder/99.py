@@ -1,34 +1,31 @@
 # DFS
 n, m = map(int, input().split())
 
-arr = []
+edges = []
 for _ in range(n):
-    arr.append(list(map(int, input().split())))
+    edges.append(list(map(int, input().split())))
 
-visited = [[False] * m for _ in range(n)]
+used = [[False] * m for _ in range(n)]
+direction = [(1, 0), (0, 1), (0, -1), (-1, 0)]
 
 def dfs(i, j):
-    if i < 0 or i >= n or j < 0 or j >= m or visited[i][j] or arr[i][j] != 1:
-        return
-    
-    if arr[i][j] == 1:
-        visited[i][j] = True
-        dfs(i+1, j)
-        dfs(i-1, j)
-        dfs(i, j+1)
-        dfs(i, j-1)
+    used[i][j] = True
+
+    for dx, dy in direction:
+        x = i + dx
+        y = j + dy
+        if 0 <= x < n and 0 <= y < m and edges[x][y] == 1 and not used[x][y]:
+            dfs(x, y)
 
 def main():
-    
     cnt = 0
     for i in range(n):
         for j in range(m):
-            if not visited[i][j] and arr[i][j] == 1:
-                cnt += 1
+            if edges[i][j] == 1 and not used[i][j]:
                 dfs(i, j)
-
+                cnt += 1
     print(cnt)
-            
+
 main()
 
 # BFS
