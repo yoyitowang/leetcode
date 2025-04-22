@@ -40,10 +40,8 @@ class Solution:
         # SC: O(h)
         if not root:
             return None
-        root.left = self.invertTree(root.left)
-        root.right = self.invertTree(root.right)
-        root.left, root.right = root.right, root.left
-        
+        root.left, root.right = self.invertTree(root.right), self.invertTree(root.left)
+
         return root
           
 # @lc code=end
