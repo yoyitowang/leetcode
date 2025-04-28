@@ -7,20 +7,21 @@
 # @lc code=start
 class Solution:
     def findMin(self, nums: List[int]) -> int:
-        # Time: O(logn)
-        # Space: O(1)
+        # TC: O(log n)
+        # SC: O(1)
+        # red(left): minmum of left side
+        # blue(right): maxmum of right side
+        # find the blue range which means the minimum and the minmum of right side
+        # [0, n-2] -> (-1, n-1)
         n = len(nums)
-        l, r = 0, n-1
-        # not rotation list
-        if nums[l] < nums[r] or n == 1:
-            return nums[l]
-
-        while l < r:
-            mid = l + ((r-l)>>1)
-            if nums[mid] > nums[r]:
-                l = mid + 1
+        left, right = 0, n-2
+        while left <= right:
+            mid = (left+right) // 2
+            # find the blue range
+            if nums[mid] < nums[-1]:
+                right = mid - 1
             else:
-                r = mid
-        return nums[l]
+                left = mid + 1
+        return nums[left]
 # @lc code=end
 
