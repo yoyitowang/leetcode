@@ -21,8 +21,6 @@ class Solution:
     def isBalanced(self, root: Optional[TreeNode]) -> bool:
         # TC: O(n)
         # SC: O(h)
-        if not root:
-            return True
         
         def dfs(node) -> int:
             if not node:
