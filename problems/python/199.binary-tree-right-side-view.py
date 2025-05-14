@@ -13,6 +13,8 @@
 #         self.right = right
 class Solution:
     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        # TC: O(n)
+        # SC: O(w)
         res = []
         if not root:
             return res
