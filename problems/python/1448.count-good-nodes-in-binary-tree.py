@@ -1,11 +1,10 @@
 #
-# @lc app=leetcode id=199 lang=python3
+# @lc app=leetcode id=1448 lang=python3
 #
-# [199] Binary Tree Right Side View
+# [1448] Count Good Nodes in Binary Tree
 #
 
 # @lc code=start
-# Definition for a binary tree node.
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -28,6 +27,5 @@ class Solution:
         dfs(root, cur_max)
 
         return res[0]
-              
 # @lc code=end
 
